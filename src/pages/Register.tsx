@@ -87,7 +87,6 @@ const Register = () => {
     const clientId = import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID;
     if (clientId) {
       setGoogleLoaded(true);
-      console.log("Google OAuth Client ID loaded:", clientId);
     } else {
       console.error(
         "Google OAuth Client ID not found in environment variables"

@@ -15,6 +15,8 @@ import HomePage from "./pages/HomePage";
 import Contact from "./pages/Contact";
 import UserProfile from "./pages/UserProfile";
 import AdminPage from "./pages/AdminPage";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentCancel from "./pages/PaymentCancel";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +35,8 @@ const router = createBrowserRouter([
       { path: "courses", element: <CoursesPage /> },
       { path: "courses/:id", element: <CourseDetailPage /> },
       { path: "pricing", element: <PricingPage /> },
+      { path: "payment/success", element: <PaymentSuccess /> },
+      { path: "payment/cancel", element: <PaymentCancel /> },
     ],
   },
   {

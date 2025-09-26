@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -13,6 +13,7 @@ import { CheckIcon } from "@chakra-ui/icons";
 import { Subscription } from "../entities/Subscription";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import PaymentModal from "./PaymentModal";
 
 interface Props {
   plan: Subscription;
@@ -22,12 +23,17 @@ interface Props {
 const PricingCard = ({ plan, onSubscribe }: Props) => {
   const navigate = useNavigate();
   const { auth } = useAuth();
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   const handleSubscribe = () => {
     if (!auth?.user) {
       navigate("/auth", { state: { from: "/pricing" } });
       return;
     }
+    setIsPaymentModalOpen(true);
+  };
+
+  const handlePaymentSuccess = () => {
     onSubscribe(plan.id);
   };
 
@@ -79,6 +85,16 @@ const PricingCard = ({ plan, onSubscribe }: Props) => {
           Subscribe Now
         </Button>
       </VStack>
+
+      <PaymentModal
+        isOpen={isPaymentModalOpen}
+        onClose={() => setIsPaymentModalOpen(false)}
+        planId={plan.id}
+        planName={plan.name}
+        amount={plan.price}
+        currency="USD"
+        onPaymentSuccess={handlePaymentSuccess}
+      />
     </Box>
   );
 };
