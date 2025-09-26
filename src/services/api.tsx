@@ -114,3 +114,8 @@ export const registerUser = async (name: string, email: string, password: string
 export const isAuthenticated = () => {
   return !!localStorage.getItem("token");
 };
+
+export const contactApi = {
+  submit: (contactData: { name: string; email: string; subject: string; message: string; userId?: string }) =>
+    api.post<{ message: string; referenceId: string; confirmationJobId: string; adminJobId: string }>("/emails/contact", contactData),
+};

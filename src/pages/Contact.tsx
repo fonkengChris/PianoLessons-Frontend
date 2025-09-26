@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Heading,
@@ -22,6 +22,7 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   FiMail,
@@ -32,6 +33,8 @@ import {
   FiHelpCircle,
   FiSend,
 } from "react-icons/fi";
+import { contactApi } from "../services/api";
+import useAuth from "../hooks/useAuth";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -40,12 +43,25 @@ const Contact = () => {
     subject: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const toast = useToast();
+  const { auth } = useAuth();
   const bgColor = useColorModeValue("white", "gray.900");
   const cardBg = useColorModeValue("white", "gray.800");
   const textColor = useColorModeValue("gray.800", "white");
   const secondaryTextColor = useColorModeValue("gray.600", "gray.300");
+
+  // Pre-fill form with current user data if logged in
+  useEffect(() => {
+    if (auth.user) {
+      setFormData(prev => ({
+        ...prev,
+        name: auth.user.name || "",
+        email: auth.user.email || "",
+      }));
+    }
+  }, [auth.user]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -55,17 +71,43 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you within 24 hours.",
-      status: "success",
-      duration: 5000,
-      isClosable: true,
-    });
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      const response = await contactApi.submit({
+        ...formData,
+        userId: auth.user?._id,
+      });
+
+      toast({
+        title: "Message sent successfully!",
+        description: `We'll get back to you within 24 hours. Reference ID: ${response.data.referenceId}`,
+        status: "success",
+        duration: 8000,
+        isClosable: true,
+      });
+
+      // Reset form but keep user info if logged in
+      setFormData(prev => ({
+        name: auth.user?.name || "",
+        email: auth.user?.email || "",
+        subject: "",
+        message: "",
+      }));
+    } catch (error: any) {
+      console.error("Contact form submission error:", error);
+      toast({
+        title: "Failed to send message",
+        description: error.response?.data?.error || "Please try again later.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -157,6 +199,11 @@ const Contact = () => {
                   <Text color={secondaryTextColor}>
                     Fill out the form below and we'll get back to you as soon as possible.
                   </Text>
+                  {auth.user && (
+                    <Text fontSize="sm" color="green.500" fontWeight="medium">
+                      ✓ Form pre-filled with your account information
+                    </Text>
+                  )}
                 </VStack>
 
                 <form onSubmit={handleSubmit}>
@@ -216,11 +263,14 @@ const Contact = () => {
                       type="submit"
                       colorScheme="blue"
                       size="lg"
-                      leftIcon={<Icon as={FiSend} />}
+                      leftIcon={isSubmitting ? <Spinner size="sm" /> : <Icon as={FiSend} />}
                       _hover={{ transform: "translateY(-2px)", shadow: "lg" }}
                       transition="all 0.2s"
+                      isLoading={isSubmitting}
+                      loadingText="Sending..."
+                      disabled={isSubmitting}
                     >
-                      Send Message
+                      {isSubmitting ? "Sending..." : "Send Message"}
                     </Button>
                   </VStack>
                 </form>
