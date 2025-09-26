@@ -65,17 +65,21 @@ const CourseCard = ({ course }: Props) => {
       }}
       border="1px"
       borderColor="gray.200"
+      w="100%"
+      maxW={{ base: "100%", sm: "400px", md: "100%", xl: "100%", "2xl": "100%" }}
+      mx="auto"
+      h="100%"
     >
       {/* Price Badge at Top */}
-      <Box p={4} pb={0}>
+      <Box p={{ base: 3, md: 4 }} pb={0}>
         <Flex justify="flex-end">
           <Box
             bg={course.price === 0 ? "green.500" : "blue.500"}
             color="white"
-            px={3}
+            px={{ base: 2, md: 3 }}
             py={1}
             borderRadius="full"
-            fontSize="sm"
+            fontSize={{ base: "xs", md: "sm" }}
             fontWeight="bold"
             shadow="md"
           >
@@ -85,11 +89,11 @@ const CourseCard = ({ course }: Props) => {
       </Box>
 
       {/* Image Section */}
-      <Box position="relative" overflow="hidden" px={4}>
+      <Box position="relative" overflow="hidden" px={{ base: 3, md: 4 }}>
         <Link to={`/courses/${course._id}`}>
           <Image
             width="100%"
-            height="220px"
+            height={{ base: "180px", sm: "200px", md: "220px", xl: "250px", "2xl": "280px" }}
             objectFit="cover"
             src={getImageUrl()}
             alt={course.title}
@@ -102,12 +106,12 @@ const CourseCard = ({ course }: Props) => {
         </Link>
       </Box>
 
-      <CardBody p={6}>
-        <VStack align="start" spacing={4}>
+      <CardBody p={{ base: 4, md: 6, xl: 8, "2xl": 10 }} h="100%" display="flex" flexDirection="column">
+        <VStack align="start" spacing={{ base: 3, md: 4, xl: 6, "2xl": 8 }} h="100%">
           {/* Title */}
           <Link to={`/courses/${course._id}`}>
             <Heading 
-              size="lg" 
+              size={{ base: "md", md: "lg", xl: "xl", "2xl": "2xl" }}
               color="gray.800" 
               _hover={{ color: "blue.500" }}
               transition="color 0.2s ease"
@@ -119,22 +123,23 @@ const CourseCard = ({ course }: Props) => {
 
           {/* Description */}
           <Text 
-            fontSize="md" 
+            fontSize={{ base: "sm", md: "md", xl: "lg", "2xl": "xl" }}
             color="gray.600" 
-            noOfLines={3}
+            noOfLines={{ base: 2, md: 3, xl: 4, "2xl": 5 }}
             lineHeight="1.4"
+            flex="1"
           >
             {course.description}
           </Text>
 
           {/* Badges */}
-          <HStack spacing={2} flexWrap="wrap">
+          <HStack spacing={2} flexWrap="wrap" mt="auto">
             <Badge 
               colorScheme={getLevelColor(course.level)}
-              px={3}
-              py={1}
+              px={{ base: 2, md: 3, xl: 4, "2xl": 5 }}
+              py={{ base: 1, xl: 2, "2xl": 3 }}
               borderRadius="md"
-              fontSize="sm"
+              fontSize={{ base: "xs", md: "sm", xl: "md", "2xl": "lg" }}
               fontWeight="semibold"
             >
               {course.level}
@@ -142,10 +147,10 @@ const CourseCard = ({ course }: Props) => {
             <Badge 
               colorScheme="blue"
               variant="subtle"
-              px={3}
-              py={1}
+              px={{ base: 2, md: 3, xl: 4, "2xl": 5 }}
+              py={{ base: 1, xl: 2, "2xl": 3 }}
               borderRadius="md"
-              fontSize="sm"
+              fontSize={{ base: "xs", md: "sm", xl: "md", "2xl": "lg" }}
               fontWeight="semibold"
             >
               {course.category}

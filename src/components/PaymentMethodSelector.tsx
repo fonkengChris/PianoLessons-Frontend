@@ -212,40 +212,40 @@ const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
 
   return (
     <Box>
-      <VStack spacing={4} align="stretch">
+      <VStack spacing={{ base: 3, md: 4 }} align="stretch">
         <Box textAlign="center">
-          <Text fontSize="xl" fontWeight="bold" mb={2}>
+          <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="bold" mb={2}>
             Choose Payment Method
           </Text>
-          <Text color="gray.600">
+          <Text color="gray.600" fontSize={{ base: "sm", md: "md" }}>
             {planName} - {currency} {amount}
           </Text>
         </Box>
 
         <RadioGroup value={selectedMethod} onChange={setSelectedMethod}>
-          <VStack spacing={3} align="stretch">
+          <VStack spacing={{ base: 2, md: 3 }} align="stretch">
             {paymentMethods.map((method) => (
               <Box
                 key={method.id}
                 borderWidth="1px"
                 borderRadius="md"
-                p={4}
+                p={{ base: 3, md: 4 }}
                 cursor="pointer"
                 _hover={{ bg: "gray.50" }}
                 bg={selectedMethod === method.id ? "blue.50" : "white"}
                 borderColor={selectedMethod === method.id ? "blue.500" : "gray.200"}
               >
-                <HStack spacing={3}>
-                  <Radio value={method.id} />
+                <HStack spacing={{ base: 2, md: 3 }}>
+                  <Radio value={method.id} size={{ base: "sm", md: "md" }} />
                   {getMethodIcon(method.id)}
                   <VStack align="start" spacing={1} flex={1}>
                     <HStack>
-                      <Text fontWeight="medium">{method.name}</Text>
+                      <Text fontWeight="medium" fontSize={{ base: "sm", md: "md" }}>{method.name}</Text>
                       {!method.supported && (
-                        <Badge colorScheme="red" size="sm">Coming Soon</Badge>
+                        <Badge colorScheme="red" size="sm" fontSize={{ base: "xs", md: "sm" }}>Coming Soon</Badge>
                       )}
                     </HStack>
-                    <Text fontSize="sm" color="gray.600">
+                    <Text fontSize={{ base: "xs", md: "sm" }} color="gray.600">
                       {method.description}
                     </Text>
                   </VStack>
@@ -257,13 +257,14 @@ const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
 
         {selectedMethod === 'mtn_mobile_money' && (
           <FormControl>
-            <FormLabel>Phone Number</FormLabel>
+            <FormLabel fontSize={{ base: "sm", md: "md" }}>Phone Number</FormLabel>
             <Input
               placeholder="+237 6XX XXX XXX or 6XX XXX XXX"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
+              size={{ base: "sm", md: "md" }}
             />
-            <Text fontSize="xs" color="gray.500" mt={1}>
+            <Text fontSize={{ base: "xs", md: "sm" }} color="gray.500" mt={1}>
               Enter your MTN Mobile Money phone number
             </Text>
           </FormControl>
@@ -271,16 +272,17 @@ const PaymentMethodSelector: React.FC<PaymentMethodSelectorProps> = ({
 
         <Button
           colorScheme="blue"
-          size="lg"
+          size={{ base: "md", md: "lg" }}
           onClick={handlePayment}
           isLoading={isLoading}
           loadingText="Processing..."
           isDisabled={!selectedMethod || (selectedMethod === 'mtn_mobile_money' && !phoneNumber)}
+          w="100%"
         >
           Pay {currency} {amount}
         </Button>
 
-        <Text fontSize="xs" color="gray.500" textAlign="center">
+        <Text fontSize={{ base: "xs", md: "sm" }} color="gray.500" textAlign="center">
           Your payment information is secure and encrypted
         </Text>
       </VStack>

@@ -66,12 +66,22 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="md">
+    <Modal 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      size={{ base: "full", sm: "md", lg: "lg" }}
+      motionPreset="slideInBottom"
+    >
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Complete Your Subscription</ModalHeader>
+      <ModalContent 
+        maxW={{ base: "100vw", sm: "md", lg: "lg" }}
+        maxH={{ base: "100vh", sm: "auto" }}
+        m={{ base: 0, sm: "auto" }}
+        borderRadius={{ base: 0, sm: "md" }}
+      >
+        <ModalHeader fontSize={{ base: "lg", md: "xl" }}>Complete Your Subscription</ModalHeader>
         <ModalCloseButton />
-        <ModalBody pb={6}>
+        <ModalBody pb={{ base: 4, md: 6 }} px={{ base: 4, md: 6 }}>
           <PaymentMethodSelector
             planId={planId}
             planName={planName}

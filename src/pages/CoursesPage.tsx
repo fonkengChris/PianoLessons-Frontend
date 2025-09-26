@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
+import { Box, Grid, GridItem, HStack, Show, VStack } from "@chakra-ui/react";
 import { Navigate } from "react-router-dom";
 import CourseHeading from "../components/CourseHeading";
 import CourseLevelSelector from "../components/CourseLevelSelector";
@@ -20,31 +20,43 @@ const CoursesPage = () => {
       }}
       templateColumns={{
         base: "1fr",
-        lg: "200px 1fr",
+        lg: "250px 1fr",
+        xl: "300px 1fr",
+        "2xl": "350px 1fr",
       }}
+      gap={{ base: 4, md: 6, xl: 8, "2xl": 12 }}
+      w="100%"
+      minH="100vh"
     >
       <Show above="lg">
-        <GridItem area="aside">
+        <GridItem area="aside" w="100%">
           <CourseCategoryList />
         </GridItem>
       </Show>
-      <GridItem area="main">
+      <GridItem area="main" w="100%">
         <CourseHeading />
-        <Box paddingX={8}>
-          <Box marginBottom={5}>
-            <HStack
-              spacing={5}
+        <Box paddingX={{ base: 4, md: 6, lg: 8, xl: 12, "2xl": 16 }} w="100%">
+          <Box marginBottom={{ base: 4, md: 5, xl: 6, "2xl": 8 }}>
+            <VStack
+              spacing={{ base: 3, md: 4, xl: 6, "2xl": 8 }}
               marginBottom={3}
               width="100%"
-              alignItems="center"
+              align="stretch"
             >
-              <CourseLevelSelector />
-              <CourseSortSelector />
-            </HStack>
+              <HStack
+                spacing={{ base: 3, md: 5, xl: 8, "2xl": 12 }}
+                width="100%"
+                alignItems="center"
+                flexWrap={{ base: "wrap", md: "nowrap" }}
+              >
+                <CourseLevelSelector />
+                <CourseSortSelector />
+              </HStack>
 
-            <Box marginBottom={3}>
-              <CourseSearchInput />
-            </Box>
+              <Box w="100%">
+                <CourseSearchInput />
+              </Box>
+            </VStack>
           </Box>
 
           <CourseGrid />

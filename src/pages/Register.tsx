@@ -227,7 +227,7 @@ const Register = () => {
         <div className="auth-form-container">
           <div className="auth-form-section">
             <h1 className="auth-heading">Registration Form</h1>
-            <form onSubmit={handleSubmit} className="auth-form">
+            <form onSubmit={handleSubmit} className="auth-form" style={{ maxWidth: "100%", padding: "1rem" }}>
               {errMsg && (
                 <p ref={errRef} className="error-message" aria-live="assertive">
                   {errMsg}

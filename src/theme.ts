@@ -41,10 +41,33 @@ const theme = extendTheme({
       950: "#00142b",
     },
   },
+  breakpoints: {
+    base: "0px",
+    xs: "320px",
+    sm: "480px",
+    md: "768px",
+    lg: "992px",
+    xl: "1280px",
+    "2xl": "1536px",
+  },
   components: {
     Box: {
       baseStyle: {
         bg: "#000000",
+      },
+    },
+    Container: {
+      baseStyle: {
+        maxW: "container.xl",
+        px: { base: 4, md: 6, lg: 8 },
+      },
+    },
+    Modal: {
+      baseStyle: {
+        dialog: {
+          maxW: { base: "95vw", md: "md", lg: "lg" },
+          mx: { base: 4, md: "auto" },
+        },
       },
     },
   },

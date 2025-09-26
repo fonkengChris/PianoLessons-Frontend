@@ -107,27 +107,29 @@ const MainNavBar = ({ user }: Props) => {
   return (
     <Box bg="gray.800" borderBottom="1px" borderColor="gray.700">
       <Flex
-        padding="10px"
+        padding={{ base: "8px", md: "10px" }}
         wrap="wrap"
         alignItems="center"
         justifyContent="space-between"
-        gap={2}
+        gap={{ base: 1, md: 2 }}
         mx="auto"
+        maxW={{ base: "container.xl", xl: "100%", "2xl": "100%" }}
+        px={{ base: 4, md: 6, lg: 8, xl: 12, "2xl": 16 }}
       >
         {/* Logo and Title Section */}
-        <Flex alignItems="center" marginRight={4}>
+        <Flex alignItems="center" marginRight={{ base: 2, md: 4 }}>
           <Link to="/">
             <Box
-              w="60px"
-              h="60px"
+              w={{ base: "50px", md: "60px" }}
+              h={{ base: "50px", md: "60px" }}
               bg="cyan.600"
               borderRadius="md"
               display="flex"
               alignItems="center"
               justifyContent="center"
-              marginRight={2}
+              marginRight={{ base: 1, md: 2 }}
             >
-              <Text fontSize="2xl" fontWeight="bold" color="white">
+              <Text fontSize={{ base: "xl", md: "2xl" }} fontWeight="bold" color="white">
                 🎹
               </Text>
             </Box>
@@ -137,7 +139,7 @@ const MainNavBar = ({ user }: Props) => {
               <Text
                 as="b"
                 color="cyan.400"
-                fontSize={{ base: "2xl", md: "4xl" }}
+                fontSize={{ base: "lg", sm: "xl", md: "2xl", lg: "3xl" }}
               >
                 Piano Lessons
               </Text>
@@ -151,7 +153,7 @@ const MainNavBar = ({ user }: Props) => {
         </Show>
 
         {/* User Section and Mobile Menu */}
-        <Flex alignItems="center" gap={4} flex={1} justifyContent="flex-end">
+        <Flex alignItems="center" gap={{ base: 2, md: 4 }} flex={1} justifyContent="flex-end">
           {/* Mobile Menu */}
           <Show below="md">
             <Menu>
@@ -161,9 +163,10 @@ const MainNavBar = ({ user }: Props) => {
                 icon={<HamburgerIcon />}
                 variant="outline"
                 color="white"
+                size={{ base: "sm", sm: "md" }}
                 _hover={{ bg: "gray.700" }}
               />
-              <MenuList bg="gray.800" borderColor="gray.600">
+              <MenuList bg="gray.800" borderColor="gray.600" minW={{ base: "200px", sm: "250px" }}>
                 <NavLinks />
                 {!user?._id && <AuthButtons />}
               </MenuList>
@@ -174,9 +177,9 @@ const MainNavBar = ({ user }: Props) => {
           <Show above="md">{!user?._id && <AuthButtons />}</Show>
 
           {user?._id && (
-            <Flex alignItems="center" gap={2}>
-              <Show above="md">
-                <Text color="white" fontWeight="medium">
+            <Flex alignItems="center" gap={{ base: 1, md: 2 }}>
+              <Show above="lg">
+                <Text color="white" fontWeight="medium" fontSize={{ base: "sm", md: "md" }}>
                   Welcome, {getFirstName(user.name)}
                 </Text>
               </Show>
@@ -184,12 +187,13 @@ const MainNavBar = ({ user }: Props) => {
                 <MenuButton>
                   <Avatar name={user.name} size={{ base: "sm", md: "md" }} />
                 </MenuButton>
-                <MenuList bg="gray.800" borderColor="gray.600">
+                <MenuList bg="gray.800" borderColor="gray.600" minW={{ base: "180px", md: "200px" }}>
                   {ListOfActions.map((action) => (
                     <MenuItem
                       key={action.value}
                       bg="gray.800"
                       _hover={{ bg: "gray.700" }}
+                      fontSize={{ base: "sm", md: "md" }}
                     >
                       <NavLink to={action.value}>{action.label}</NavLink>
                     </MenuItem>
@@ -198,6 +202,7 @@ const MainNavBar = ({ user }: Props) => {
                     onClick={handleLogout}
                     bg="gray.800"
                     _hover={{ bg: "gray.700" }}
+                    fontSize={{ base: "sm", md: "md" }}
                   >
                     <Text>Logout</Text>
                   </MenuItem>

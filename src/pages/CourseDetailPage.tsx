@@ -79,9 +79,18 @@ const CourseDetailPage = () => {
   };
 
   return (
-    <Box bg="#000000" minH="100vh" p={5}>
-      <Grid templateColumns={{ base: "1fr", lg: "70% 30%" }} gap={6}>
-        <Box>
+    <Box bg="#000000" minH="100vh" w="100%" p={{ base: 3, md: 4, lg: 5, xl: 8, "2xl": 12 }}>
+      <Grid 
+        templateColumns={{ base: "1fr", lg: "70% 30%", xl: "75% 25%", "2xl": "80% 20%" }} 
+        gap={{ base: 4, md: 6, xl: 8, "2xl": 12 }}
+        templateAreas={{
+          base: `"main" "sidebar"`,
+          lg: `"main sidebar"`
+        }}
+        w="100%"
+        h="100%"
+      >
+        <Box gridArea="main" w="100%" h="100%">
           {!progressLoading && progress && (
             <CourseProgress
               course={course}
@@ -101,13 +110,14 @@ const CourseDetailPage = () => {
           ) : (
             <Box
               bg="#000000"
-              h="400px"
+              h={{ base: "300px", md: "400px", xl: "500px", "2xl": "600px" }}
               display="flex"
               alignItems="center"
               justifyContent="center"
               borderRadius="md"
+              w="100%"
             >
-              <Text color="gray.400" fontSize="lg">
+              <Text color="gray.400" fontSize={{ base: "md", md: "lg", xl: "xl", "2xl": "2xl" }}>
                 {!isAuthenticated 
                   ? "Please log in to view course lessons"
                   : lessonsQuery.error?.response?.status === 403
@@ -116,16 +126,29 @@ const CourseDetailPage = () => {
               </Text>
             </Box>
           )}
-          <VStack align="start" spacing={4} mt={4}>
-            <Heading color="white" size="xl">
+          <VStack 
+            align="start" 
+            spacing={{ base: 3, md: 4, xl: 6, "2xl": 8 }} 
+            mt={{ base: 3, md: 4, xl: 6, "2xl": 8 }}
+            w="100%"
+          >
+            <Heading 
+              color="white" 
+              size={{ base: "lg", md: "xl", xl: "2xl", "2xl": "3xl" }}
+            >
               Lesson Notes
             </Heading>
-            <Text color="gray.300" fontSize="md" lineHeight="tall">
-              {lessons[selectedLesson].description}
+            <Text 
+              color="gray.300" 
+              fontSize={{ base: "sm", md: "md", xl: "lg", "2xl": "xl" }} 
+              lineHeight="tall"
+              maxW="100%"
+            >
+              {lessons[selectedLesson]?.description || "No description available for this lesson."}
             </Text>
           </VStack>
         </Box>
-        <Box>
+        <Box gridArea="sidebar" w="100%" h="100%">
           {/* Lesson List */}
           {lessons.length > 0 ? (
             <LessonList
@@ -143,13 +166,21 @@ const CourseDetailPage = () => {
           ) : (
             <Box
               bg="gray.700"
-              p={4}
+              p={{ base: 3, md: 4, xl: 6, "2xl": 8 }}
               borderRadius="md"
+              h="100%"
             >
-              <Heading color="white" size="md" mb={4}>
+              <Heading 
+                color="white" 
+                size={{ base: "sm", md: "md", xl: "lg", "2xl": "xl" }} 
+                mb={{ base: 3, md: 4, xl: 6, "2xl": 8 }}
+              >
                 Course Lessons
               </Heading>
-              <Text color="gray.400">
+              <Text 
+                color="gray.400" 
+                fontSize={{ base: "sm", md: "md", xl: "lg", "2xl": "xl" }}
+              >
                 {!isAuthenticated 
                   ? "Please log in to view course lessons"
                   : lessonsQuery.error?.response?.status === 403

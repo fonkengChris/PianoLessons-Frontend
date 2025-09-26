@@ -21,11 +21,12 @@ const CourseGrid = () => {
   const allCourses = courses || [];
 
   return (
-    <Box padding="10px">
+    <Box padding={{ base: "10px", xl: "20px", "2xl": "30px" }} w="100%">
       <SimpleGrid
-        columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
-        spacing={6}
-        padding="10px"
+        columns={{ sm: 1, md: 2, lg: 3, xl: 4, "2xl": 5 }}
+        spacing={{ base: 6, xl: 8, "2xl": 12 }}
+        padding={{ base: "10px", xl: "20px", "2xl": "30px" }}
+        w="100%"
       >
         {/* Loading skeletons */}
         {isLoading &&
@@ -49,8 +50,13 @@ const CourseGrid = () => {
 
       {/* No courses message */}
       {allCourses.length === 0 && !isLoading && (
-        <Box padding="20px" textAlign="center">
-          <Text color="gray.500">No courses available.</Text>
+        <Box padding={{ base: "20px", xl: "40px", "2xl": "60px" }} textAlign="center" w="100%">
+          <Text 
+            color="gray.500" 
+            fontSize={{ base: "md", xl: "lg", "2xl": "xl" }}
+          >
+            No courses available.
+          </Text>
         </Box>
       )}
     </Box>

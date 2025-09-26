@@ -106,12 +106,12 @@ const VideoPlayer = ({ lesson, onLessonComplete, isSubscribed = true }: Props) =
   }
 
   return (
-    <VStack spacing={4} align="stretch">
-      <Box bg="gray.700" p={4} borderRadius="md">
-        <Heading color="white" size="md" mb={2}>
+    <VStack spacing={{ base: 3, md: 4 }} align="stretch">
+      <Box bg="gray.700" p={{ base: 3, md: 4 }} borderRadius="md">
+        <Heading color="white" size={{ base: "sm", md: "md" }} mb={2}>
           {lesson.title}
         </Heading>
-        <Text color="gray.300" fontSize="sm">
+        <Text color="gray.300" fontSize={{ base: "xs", md: "sm" }}>
           Duration: {lesson.duration} minutes
         </Text>
       </Box>
@@ -122,8 +122,10 @@ const VideoPlayer = ({ lesson, onLessonComplete, isSubscribed = true }: Props) =
         bg="black"
         borderRadius="md"
         overflow="hidden"
-        minH="400px"
-        maxH="600px"
+        minH={{ base: "250px", sm: "300px", md: "400px", lg: "500px", xl: "600px", "2xl": "700px" }}
+        maxH={{ base: "400px", sm: "500px", md: "600px", lg: "700px", xl: "800px", "2xl": "900px" }}
+        w="100%"
+        maxW="100%"
       >
         {isLoading && (
           <Box
@@ -139,24 +141,26 @@ const VideoPlayer = ({ lesson, onLessonComplete, isSubscribed = true }: Props) =
 
         {hasError ? (
           <Box
-            height="400px"
+            height={{ base: "250px", sm: "300px", md: "400px" }}
             display="flex"
             flexDirection="column"
             alignItems="center"
             justifyContent="center"
             bg="gray.800"
+            p={4}
           >
-            <Alert status="error" variant="subtle" flexDirection="column" alignItems="center" justifyContent="center" textAlign="center" height="200px">
-              <AlertIcon boxSize="40px" mr={0} />
-              <Text mt={4} mb={4} color="red.400">
+            <Alert status="error" variant="subtle" flexDirection="column" alignItems="center" justifyContent="center" textAlign="center" height="auto" minH="200px">
+              <AlertIcon boxSize={{ base: "30px", md: "40px" }} mr={0} />
+              <Text mt={4} mb={4} color="red.400" fontSize={{ base: "sm", md: "md" }}>
                 {errorMessage}
               </Text>
-              <Text mb={4} color="gray.400" fontSize="sm">
+              <Text mb={4} color="gray.400" fontSize={{ base: "xs", md: "sm" }} wordBreak="break-all">
                 Video URL: {lesson.videoUrl}
               </Text>
               <Button 
                 colorScheme="red" 
                 variant="outline" 
+                size={{ base: "sm", md: "md" }}
                 onClick={() => {
                   setHasError(false);
                   setIsLoading(true);
@@ -171,7 +175,7 @@ const VideoPlayer = ({ lesson, onLessonComplete, isSubscribed = true }: Props) =
             ref={playerRef}
             url={lesson.videoUrl}
             width="100%"
-            height="400px"
+            height="100%"
             playing={isPlaying}
             muted={isMuted}
             volume={volume}
@@ -181,6 +185,11 @@ const VideoPlayer = ({ lesson, onLessonComplete, isSubscribed = true }: Props) =
             onProgress={handleProgress}
             onDuration={handleDuration}
             onEnded={handleEnded}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+            }}
           />
         )}
       </Box>
