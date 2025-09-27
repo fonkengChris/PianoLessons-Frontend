@@ -11,6 +11,9 @@ export default defineConfig(({ mode }) => {
       "import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID": JSON.stringify(
         env.VITE_GOOGLE_OAUTH_CLIENT_ID
       ),
+      "import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_SECRET": JSON.stringify(
+        env.VITE_GOOGLE_OAUTH_CLIENT_SECRET
+      ),
     },
     build: {
       rollupOptions: {
