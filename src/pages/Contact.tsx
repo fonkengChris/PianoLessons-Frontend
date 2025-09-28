@@ -76,10 +76,16 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await contactApi.submit({
+      const contactData = {
         ...formData,
-        userId: auth.user?._id,
-      });
+      };
+      
+      // Only include userId if user is logged in
+      if (auth.user?._id) {
+        contactData.userId = auth.user._id;
+      }
+      
+      const response = await contactApi.submit(contactData);
 
       toast({
         title: "Message sent successfully!",
