@@ -34,22 +34,7 @@ const CourseDetailPage = () => {
   
   // Temporarily bypass subscription - fetch lessons for all authenticated users
   const shouldFetchLessons = !!auth?.user;
-  
-  // Debug logging
-  console.log("CourseDetailPage Debug:");
-  console.log("- Course ID:", id);
-  console.log("- Auth state:", auth);
-  console.log("- Should fetch lessons:", shouldFetchLessons);
-  console.log("- Token exists:", !!localStorage.getItem("token"));
-  
   const lessonsQuery = useLessons(id, shouldFetchLessons);
-  
-  console.log("- Lessons query state:", {
-    isLoading: lessonsQuery.isLoading,
-    error: lessonsQuery.error,
-    data: lessonsQuery.data,
-    isEnabled: !!id && !!shouldFetchLessons
-  });
 
   if (courseQuery.isLoading) {
     return (
@@ -118,7 +103,6 @@ const CourseDetailPage = () => {
               lesson={lessons[selectedLesson]}
               onLessonComplete={() => {
                 // Handle lesson completion
-                console.log("Lesson completed:", lessons[selectedLesson].title);
               }}
               isSubscribed={hasActiveSubscription}
             />
