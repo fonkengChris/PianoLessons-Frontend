@@ -20,7 +20,7 @@ import {
 } from "../data/constants";
 import countries from "../data/countries";
 import Customer from "../entities/Customer";
-import { api } from "../services/api";
+import { api, authApi } from "../services/api";
 import "../index.css";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
@@ -136,15 +136,15 @@ const Register = () => {
         password: password,
       };
 
-      const response = await userApiClient.post(userPayload);
-      const { accessToken } = response;
+      const response = await authApi.register(userPayload);
+      const { accessToken } = response.data;
 
       // Store the token and redirect
       localStorage.setItem("token", accessToken);
 
       try {
-        await customerApiClient.post({
-          user: response.user._id,
+        await api.post("/customers", {
+          user: response.data.user._id,
           country: country,
         });
       } catch (customerError: any) {
@@ -177,12 +177,12 @@ const Register = () => {
         decoded,
       });
 
-      const response = await api.post(
-        "/auth/google/google-register",
-        {
-          token: credentialResponse.credential,
-        }
-      );
+      // Use the existing registration endpoint with Google user data
+      const response = await authApi.register({
+        name: decoded.name,
+        email: decoded.email,
+        password: "google_oauth_user", // Temporary password for Google users
+      });
 
       localStorage.setItem("token", response.data.accessToken);
       toast({

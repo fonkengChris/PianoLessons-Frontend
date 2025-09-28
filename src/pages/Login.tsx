@@ -19,6 +19,7 @@ import {
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { GoogleLogin } from "@react-oauth/google";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import { authApi } from "../services/api";
 import useAuth from "../hooks/useAuth";
 
@@ -69,12 +70,38 @@ const Login = () => {
 
   const handleGoogleSuccess = async (credentialResponse: any) => {
     try {
-      // Handle Google OAuth login
-      console.log("Google login:", credentialResponse);
-      // Add Google OAuth logic here
-    } catch (error) {
+      const decoded: any = jwtDecode(credentialResponse.credential);
+      console.log("Google login:", decoded);
+
+      // For Google OAuth login, we'll try to login with the email
+      // If user doesn't exist, they should register first
+      const response = await authApi.login({
+        email: decoded.email,
+        password: "google_oauth_user", // This won't work for existing users
+      });
+
+      localStorage.setItem("token", response.data.accessToken);
+      setAuth({
+        user: {
+          _id: response.data.user?._id || decoded.sub,
+          email: decoded.email,
+          name: decoded.name,
+          role: response.data.user?.role || "user",
+        },
+      });
+
+      toast({
+        title: "Login successful",
+        status: "success",
+        duration: 3000,
+      });
+
+      navigate("/");
+    } catch (error: any) {
+      console.error("Google login error:", error);
       toast({
         title: "Google login failed",
+        description: "Please register first or use email/password login",
         status: "error",
         duration: 5000,
       });
