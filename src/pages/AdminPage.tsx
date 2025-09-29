@@ -63,12 +63,12 @@ const AdminPage: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgColor = useColorModeValue("white", "gray.900");
   const borderColor = useColorModeValue("gray.200", "gray.700");
-  const sidebarBg = useColorModeValue("blue.600", "blue.950");
-  const mainBg = useColorModeValue("gray.50", "#000000");
+  const sidebarBg = "gray.800";
+  const mainBg = "#000000";
   const contentBg = useColorModeValue("white", "gray.800");
   const headerBg = useColorModeValue("white", "gray.800");
   const textColor = useColorModeValue("gray.800", "gray.100");
-  const headingColor = useColorModeValue("blue.600", "blue.300");
+  const headingColor = useColorModeValue("cyan.600", "cyan.400");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -165,10 +165,10 @@ const AdminPage: React.FC = () => {
     <VStack align="stretch" spacing={6}>
       <Button
         leftIcon={<FiArrowLeft />}
-        colorScheme="blue"
+        colorScheme="cyan"
         variant="outline"
         color="white"
-        _hover={{ bg: "blue.800" }}
+        _hover={{ bg: "cyan.700" }}
         mb={6}
         onClick={() => navigate("/courses")}
         w="full"
@@ -188,7 +188,7 @@ const AdminPage: React.FC = () => {
               justifyContent="flex-start"
               leftIcon={<Icon as={FiUsers} />}
               color="whiteAlpha.900"
-              _hover={{ bg: "blue.800" }}
+              _hover={{ bg: "cyan.700" }}
               onClick={() => handleNavigationChange("/admin/users")}
               isActive={location.pathname === "/admin/users"}
             >
@@ -209,7 +209,7 @@ const AdminPage: React.FC = () => {
             justifyContent="flex-start"
             leftIcon={<Icon as={FiBook} />}
             color="whiteAlpha.900"
-            _hover={{ bg: "blue.800" }}
+            _hover={{ bg: "cyan.700" }}
             onClick={() => handleNavigationChange("/admin/courses")}
             isActive={location.pathname === "/admin/courses"}
           >
@@ -220,7 +220,7 @@ const AdminPage: React.FC = () => {
             justifyContent="flex-start"
             leftIcon={<Icon as={FiFolder} />}
             color="whiteAlpha.900"
-            _hover={{ bg: "blue.800" }}
+            _hover={{ bg: "cyan.700" }}
             onClick={() => handleNavigationChange("/admin/category")}
             isActive={location.pathname === "/admin/category"}
           >
@@ -231,7 +231,7 @@ const AdminPage: React.FC = () => {
             justifyContent="flex-start"
             leftIcon={<Icon as={FiPlay} />}
             color="whiteAlpha.900"
-            _hover={{ bg: "blue.800" }}
+            _hover={{ bg: "cyan.700" }}
             onClick={() => handleNavigationChange("/admin/lessons")}
             isActive={location.pathname === "/admin/lessons"}
           >
@@ -256,7 +256,7 @@ const AdminPage: React.FC = () => {
               justifyContent="flex-start"
               leftIcon={<Icon as={FiDollarSign} />}
               color="whiteAlpha.900"
-              _hover={{ bg: "blue.800" }}
+              _hover={{ bg: "cyan.700" }}
               onClick={() => handleNavigationChange("/admin/subscriptions")}
               isActive={location.pathname === "/admin/subscriptions"}
             >
@@ -321,7 +321,7 @@ const AdminPage: React.FC = () => {
                 icon={<FiMenu />}
                 onClick={onOpen}
                 display={{ base: "flex", lg: "none" }}
-                colorScheme="blue"
+                colorScheme="cyan"
                 variant="outline"
               />
             </Flex>
@@ -334,8 +334,8 @@ const AdminPage: React.FC = () => {
                 placeholder="Select an option"
                 size="lg"
                 bg="white"
-                borderColor="blue.200"
-                _focus={{ borderColor: "blue.500", boxShadow: "outline" }}
+                borderColor="cyan.200"
+                _focus={{ borderColor: "cyan.500", boxShadow: "outline" }}
               >
                 {navigationOptions.map((option) => (
                   <option key={option.path} value={option.path}>
@@ -377,7 +377,7 @@ const AdminPage: React.FC = () => {
           <DrawerHeader
             color="white"
             borderBottomWidth="1px"
-            borderColor="blue.800"
+            borderColor="cyan.700"
           >
             Piano Lessons Admin
           </DrawerHeader>
