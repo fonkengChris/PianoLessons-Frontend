@@ -192,8 +192,9 @@ const MainNavBar = ({ user }: Props) => {
                     <MenuItem
                       key={action.value}
                       bg="gray.800"
-                      _hover={{ bg: "gray.700" }}
+                      _hover={{ bg: "cyan.700" }}
                       fontSize={{ base: "sm", md: "md" }}
+                      color="white"
                     >
                       <NavLink to={action.value}>{action.label}</NavLink>
                     </MenuItem>
@@ -201,8 +202,9 @@ const MainNavBar = ({ user }: Props) => {
                   <MenuItem
                     onClick={handleLogout}
                     bg="gray.800"
-                    _hover={{ bg: "gray.700" }}
+                    _hover={{ bg: "cyan.700" }}
                     fontSize={{ base: "sm", md: "md" }}
+                    color="white"
                   >
                     <Text>Logout</Text>
                   </MenuItem>
