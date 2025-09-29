@@ -63,6 +63,12 @@ const AdminPage: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const bgColor = useColorModeValue("white", "gray.900");
   const borderColor = useColorModeValue("gray.200", "gray.700");
+  const sidebarBg = useColorModeValue("blue.600", "blue.950");
+  const mainBg = useColorModeValue("gray.50", "#000000");
+  const contentBg = useColorModeValue("white", "gray.800");
+  const headerBg = useColorModeValue("white", "gray.800");
+  const textColor = useColorModeValue("gray.800", "gray.100");
+  const headingColor = useColorModeValue("blue.600", "blue.300");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -268,7 +274,7 @@ const AdminPage: React.FC = () => {
         {/* Sidebar - Hidden on mobile, visible on desktop */}
         <Box
           w={{ base: "0", lg: "250px" }}
-          bg="blue.950"
+          bg={sidebarBg}
           p={4}
           display={{ base: "none", lg: "block" }}
         >
@@ -281,12 +287,12 @@ const AdminPage: React.FC = () => {
         {/* Main Content Area */}
         <Box
           flex={1}
-          bg="#000000"
+          bg={mainBg}
           p={{ base: 4, md: 6, lg: 8 }}
           overflowY="auto"
         >
           {/* Mobile Header with Menu Button and Selector */}
-          <Box bg="white" p={4} borderRadius="lg" mb={4} boxShadow="sm">
+          <Box bg={headerBg} p={4} borderRadius="lg" mb={4} boxShadow="sm">
             {/* First line: Avatar, Welcome message, and Menu button */}
             <Flex
               align="center"
@@ -301,7 +307,7 @@ const AdminPage: React.FC = () => {
                 </Wrap>
                 <Heading
                   size="md"
-                  color="blue.600"
+                  color={headingColor}
                   fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}
                   textAlign="center"
                 >
@@ -342,7 +348,7 @@ const AdminPage: React.FC = () => {
             {/* Desktop instruction */}
             <Text
               fontSize={{ base: "lg", md: "xl" }}
-              color="gray.800"
+              color={textColor}
               display={{ base: "none", lg: "block" }}
               mt={4}
             >
@@ -352,7 +358,7 @@ const AdminPage: React.FC = () => {
 
           {/* Main content box */}
           <Box
-            bg="white"
+            bg={contentBg}
             borderRadius="lg"
             p={{ base: 4, md: 6 }}
             boxShadow="sm"
@@ -366,7 +372,7 @@ const AdminPage: React.FC = () => {
       {/* Mobile Drawer */}
       <Drawer isOpen={isOpen} placement="left" onClose={onClose} size="xs">
         <DrawerOverlay />
-        <DrawerContent bg="blue.950">
+        <DrawerContent bg={sidebarBg}>
           <DrawerCloseButton color="white" />
           <DrawerHeader
             color="white"

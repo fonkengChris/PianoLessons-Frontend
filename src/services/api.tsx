@@ -3,9 +3,6 @@ import Course from "../entities/Course";
 import User from "../entities/User";
 import Category from "../entities/Category";
 import Lesson from "../entities/Lesson";
-import Review from "../entities/Review";
-import Language from "../entities/Language";
-import Song from "../entities/Song";
 import { Subscription } from "../entities/Subscription";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
