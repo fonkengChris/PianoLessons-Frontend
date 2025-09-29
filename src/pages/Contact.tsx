@@ -75,6 +75,43 @@ const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
+    // Client-side validation
+    if (formData.name.length < 2) {
+      toast({
+        title: "Invalid name",
+        description: "Name must be at least 2 characters long",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (formData.subject.length < 5) {
+      toast({
+        title: "Invalid subject",
+        description: "Subject must be at least 5 characters long",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
+    if (formData.message.length < 10) {
+      toast({
+        title: "Message too short",
+        description: "Message must be at least 10 characters long",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const contactData = {
         ...formData,
